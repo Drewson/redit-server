@@ -3,7 +3,4 @@ npm-debug.log
 
 server/node_modules
 
-web.browser/node_modules
-web.browser/build
-
 .vscode/
