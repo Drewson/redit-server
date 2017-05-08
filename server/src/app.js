@@ -1,5 +1,8 @@
 import express from 'express'
 import { resolve } from 'path'
+import cors from 'cors';
+// const cors = require('cors');
+
 
 import fallback from 'express-history-api-fallback';
 
@@ -11,11 +14,10 @@ const app = express();
 const Pool = require('pg').Pool;
 const apiRouter = new express.Router();
 const authRouter = new express.Router();
+const cookeParser = require('cookie-parser');
 
 const apiRoutes = require('./routes/api')
 const authRoutes = require('./routes/auth')
-
-// app.use(express.static(root));
 
 const pgConfig = {
   user: 'andrewnelson',
@@ -36,8 +38,10 @@ app.use(function(req, res, next) {
 });
 
 app.use(json())
+app.use(cors())
+app.use(cookeParser())
 
-app.use('/api', apiRoutes(apiRouter))
-app.use('/auth', apiRoutes(authRouter))
+app.use('/api', apiRoutes(apiRouter));
+app.use('/auth', authRoutes(authRouter));
 
 module.exports = app;
